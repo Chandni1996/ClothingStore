@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/webflow
+http://www.springframework.org/schema/webflow/spring-webflow-2.4.xsd">
+ 
+	<var name="cart" class="ClothingStore.MasterController" />
+ 
+ 	<action-state id="addCartToOrder">
+        <evaluate expression="cart.test()" result="cart" />
+        <transition to="loginviewstate" on="true" />
+        <transition to="Page1" on="false" />
+    </action-state>
+ 	
+ 	<view-state id="loginviewstate" view="/WEB-INF/views/LoginForm.jsp">
+		<transition to="run" on="goToCart" />		
+	</view-state>
+ 	
+  <view-state id="Page1" view="/WEB-INF/flows/Page1.jsp">
+		<transition on="takeMeToPage2" to="Page2" />
+	</view-state>
+	
+	<view-state id="Page2" view="/WEB-INF/flows/Page2.jsp">
+		<transition on="takeMeToPage1" to="Page1" />
+		<transition on="takeMeToPage3" to="Page3" />
+	</view-state>
+	
+	<view-state id="Page3" view="/WEB-INF/flows/Page3.jsp">
+		<transition on="takeMeToPage2" to="Page2" />
+		<transition on="takeMeToPage4" to="Page4" />
+	</view-state>
+
+<end-state id="Page4" view="/WEB-INF/flows/Page4.jsp"/>
+	</flow>
